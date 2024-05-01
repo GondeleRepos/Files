@@ -21,36 +21,30 @@ function hideElements() {
             }
         });
     }
-
-    // Hide or remove iframes with no source
-    hideEmptyIframes();
 }
 
 function hideEmptyIframes() {
     var iframes = document.getElementsByTagName('iframe');
-    Array.from(iframes).forEach(function(iframe) {
+    Array.from(iframes).forEach(iframe => {
         if (!iframe.src || iframe.src.trim() === '') {
-            iframe.style.display = 'none';  // hides the iframe
-            // iframe.remove();  // removes the iframe from the DOM
+            iframe.style.display = 'none';
         }
     });
 }
 
-// Mutation observer to monitor changes in the DOM
-const observer = new MutationObserver((mutations) => {
-    mutations.forEach((mutation) => {
-        if (mutation.addedNodes) {
-            mutation.addedNodes.forEach((node) => {
-                if (node.nodeName.toLowerCase() === 'iframe') {
-                    hideEmptyIframes();  // Call the function to hide iframes when new nodes are added
-                }
-            });
-        }
+const observer = new MutationObserver(mutations => {
+    mutations.forEach(mutation => {
+        mutation.addedNodes.forEach(node => {
+            if (node.nodeName.toLowerCase() === 'iframe') {
+                hideEmptyIframes();
+            }
+        });
     });
 });
 
-// Start observing the body for added nodes
 observer.observe(document.body, {
     childList: true,
     subtree: true
 });
+
+hideElements();
