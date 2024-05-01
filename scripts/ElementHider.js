@@ -21,22 +21,11 @@ function hideElements() {
         }
     });
 }
+var iframes = document.getElementsByTagName('iframe');
+        Array.from(iframes).forEach(function(iframe) {
+            if (!iframe.src || iframe.src.trim() === '') {
+                iframe.style.display = 'none';  // hides the iframe
+                // iframe.remove();  // removes the iframe from the DOM
+            }
+        });
 }
-
-
-const observer = new MutationObserver((mutations) => {
-    mutations.forEach((mutation) => {
-        if (mutation.addedNodes) {
-            mutation.addedNodes.forEach((node) => {
-                if (node.nodeName.toLowerCase() === 'in-page-message') {
-                    node.style.display = 'none'; // or node.remove();
-                }
-            });
-        }
-    });
-});
-
-observer.observe(document.body, {
-    childList: true,
-    subtree: true
-});
