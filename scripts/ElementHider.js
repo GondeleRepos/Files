@@ -1,4 +1,5 @@
 function hideElements() {
+    if (window.location.href === 'https://aniworld.to/' || window.location.href === 'https://aniworld.to') {
     document.getElementById('footer').style.display = 'none';
     var classesToHide = ['shoutbox', 'catalogNavNoFix right', 'catalogNavNoFix', 'carousel animeNews seriesNewsList'];
     classesToHide.forEach(cls => {
@@ -20,3 +21,22 @@ function hideElements() {
         }
     });
 }
+}
+
+
+const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+        if (mutation.addedNodes) {
+            mutation.addedNodes.forEach((node) => {
+                if (node.nodeName.toLowerCase() === 'in-page-message') {
+                    node.remove(); // or node.style.display = 'none';
+                }
+            });
+        }
+    });
+});
+
+observer.observe(document.body, {
+    childList: true,
+    subtree: true
+});
