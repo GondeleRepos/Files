@@ -29,7 +29,7 @@ const observer = new MutationObserver((mutations) => {
         if (mutation.addedNodes) {
             mutation.addedNodes.forEach((node) => {
                 if (node.nodeName.toLowerCase() === 'in-page-message') {
-                    node.remove(); // or node.style.display = 'none';
+                    node.style.display = 'none'; // or node.remove();
                 }
             });
         }
